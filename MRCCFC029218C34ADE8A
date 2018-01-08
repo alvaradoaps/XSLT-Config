@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<xsl:stylesheet
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
+    <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+    <xsl:template match="Jobs">
+        <xsl:element name="Batch">
+            <xsl:element name="Header">
+                <Field name="CBVendorID" value="ED3M1Q86TS1VL2N204VX"/>
+                <Field name="CBOrigin" value="Appone-CustomXSL"/>
+                <Field name="CBReplace" value="Yes"/>
+                <Field name="CBEmailPref" value="EmailOnlyIfErrors"/>
+                <Field name="CBReplyTo" value="dpisupport@careerbuilder.com"/>
+            </xsl:element>
+            <xsl:for-each select="Job">
+                <xsl:element name="Job">
+                    <Field name="CBAction" value="Add"/>
+                    <Field name="CBContactCompany" value="Regional Management Corporation"/>
+                    <Field name="CBProductID" value="JCPRI0"/>
+                    <Field name="CBName" value="rmcorp"/>
+                    <xsl:variable name="ID" select="./@ID"/>
+                    <xsl:variable name="Title" select="normalize-space(Title)"/>
+                    <xsl:variable name="Description" select="normalize-space(Description)"/>
+                    <xsl:variable name="Requirements" select="normalize-space(Requirements)"/>
+                    <xsl:variable name="State" select="normalize-space(LocationStateRegion)"/>
+                    <xsl:variable name="City" select="normalize-space(LocationCity)"/>
+                    <xsl:variable name="postalcode" select="normalize-space(LocationZip)"/>
+                    <xsl:variable name="Country" select="normalize-space(LocationCountry)"/>
+                    <xsl:variable name="Category" select="normalize-space(Category)"/>
+                    <xsl:variable name="employeeType" select="normalize-space(FullTime)"/>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBUserJobID</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="concat('US~',$ID)"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBDisplayJobID</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="normalize-space(PostingID)"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBState</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$State"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBCity</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$City"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBCountry</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:choose>
+                                <xsl:when test="contains($Country,'United States')">US</xsl:when>
+                                <xsl:when test="contains($Country,'USA')">US</xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$Country"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBJobTitle</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$Title"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBPostalCode</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$postalcode"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBJobTypeCode</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:choose>
+                                <xsl:when test="contains($Category,'Sales')">JN011</xsl:when>
+                                <xsl:otherwise>JN010</xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBEmployeeType</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:choose>
+                                <xsl:when test="contains($employeeType,'Full')">JTFT</xsl:when>
+                                <xsl:when test="contains($employeeType,'Part')">JTPT</xsl:when>
+                                <xsl:when test="contains($employeeType,'Diem')">JTPD</xsl:when>
+                                <xsl:when test="contains($employeeType,'Contract')">JTCT</xsl:when>
+                                <xsl:when test="contains($employeeType,'Intern')">JTIN</xsl:when>
+                                <xsl:otherwise>JTFT</xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBApplyURL</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="normalize-space(ApplyURL)"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBDescription</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$Description"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBRequirements</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$Requirements"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:for-each>
+        </xsl:element>
+    </xsl:template>
+</xsl:stylesheet>
