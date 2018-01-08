@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<xsl:stylesheet
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
+    <!--End of edit for NameSpaces -->
+    <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+    <!-- Start of comments for XSL -->
+    <!--  
+JAR Name: Valvoline -US
+AccountDID: AKD3J16VY621YHD7VSN
+MappingRequestDID: MRB06E029656AD4E1386
+Bulkposter: BulkPosterUS@ValvolineHACBFulfillment.com
+VendorID: ED3M5HX6NJVRGJZ0C8KG
+Source URL: http://d35imnl5dq25kc.cloudfront.net/Careerbuilder/feed-Careerbuilder-390538cd-fc6d-43c8-a292-7cc716e8cbd6.xml
+Where we are pulling from: http://d35imnl5dq25kc.cloudfront.net/Careerbuilder/feed-Careerbuilder-390538cd-fc6d-43c8-a292-7cc716e8cbd6.xml
+-->
+    <!-- End of comments for XSL -->
+    <xsl:template match="*">
+        <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'"/>
+        <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
+        <Batch>
+            <Header>
+                <Field name="CBVendorID" value="ED3M5HX6NJVRGJZ0C8KG"/>
+                <Field name="CBOrigin" value="Valvoline-cloudfront-CustomXSL"/>
+                <Field name="CBReplace" value="Yes"/>
+                <Field name="CBReplyTo" value="dpisupport@careerbuilder.com"/>
+                <Field name="CBEmailPref" value="EmailOnlyIfErrors"/>
+            </Header>
+            <xsl:for-each select="job">
+                <Job>
+                    <!--Start of Variables-->
+                    <xsl:variable name="NormalizedJobID" select="normalize-space(referencenumber)"/>
+                    <xsl:variable name="NormalizedJobTitle" select="normalize-space(title)"/>
+                    <xsl:variable name="NormalizedPostalCode" select="normalize-space(postalcode)"/>
+                    <xsl:variable name="NormalizedCity" select="normalize-space(city)"/>
+                    <xsl:variable name="NormalizedState" select="normalize-space(state)"/>
+                    <xsl:variable name="NormalizedCountry" select="normalize-space(country)"/>
+                    <xsl:variable name="NormalizedApplyURL" select="normalize-space(url)"/>
+                    <xsl:variable name="NormalizedDescription" select="normalize-space(description)"/>
+                    <!--End of Variables-->
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBUserJobID</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="concat('US-',$NormalizedJobID)"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBDisplayJobID</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$NormalizedJobID"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBJobTitle</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$NormalizedJobTitle"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBCity</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$NormalizedCity"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBState</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$NormalizedState"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBCountry</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$NormalizedCountry"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBPostalCode</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$NormalizedPostalCode"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBJobTypeCode</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:choose>
+                                <xsl:when test="contains($NormalizedJobTitle, 'Assistant Manager')">JN002,JN037</xsl:when>
+                                <xsl:when test="contains($NormalizedJobTitle, 'Customer Relations Specialist')">JN003</xsl:when>
+                                <xsl:when test="contains($NormalizedJobTitle, 'Auto Tech')">JN054,JN056</xsl:when>
+                                <xsl:when test="contains($NormalizedJobTitle, 'Manager')">JN037</xsl:when>
+                                <xsl:otherwise>JN010</xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBApplyURL</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$NormalizedApplyURL"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBDescription</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$NormalizedDescription"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                </Job>
+                <!-- End of CB Job node -->
+            </xsl:for-each>
+            <!-- End of BM job node -->
+        </Batch>
+        <!-- End of Batch -->
+    </xsl:template>
+</xsl:stylesheet>
