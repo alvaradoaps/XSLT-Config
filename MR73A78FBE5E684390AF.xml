@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<xsl:stylesheet
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:ns0="http://FullJobFeedManager.FullJobFeed" exclude-result-prefixes="ns0" version="2.0">
+    <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+    <!--
+Mondelez-CA - MR73A78FBE5E684390AF
+bulkposterCB@MondelezIntl.com - ED3V6SJ6YHPVNGHSTTGR
+Source = connection.smashfly.com/cb/mondelez.xml
+username = mondelez01
+passwd = 8nVXZN7K0GZPWWwGbSiQ
+-->
+    <xsl:template match="*">
+        <xsl:element name="Batch">
+            <xsl:element name="Header">
+                <Field name="CBVendorID" value="ED3V6SJ6YHPVNGHSTTGR"/>
+                <Field name="CBOrigin" value="Smashfly-CustomXSLT"/>
+                <Field name="CBReplace" value="Yes"/>
+                <Field name="CBEmailPref" value="EmailOnlyIfErrors"/>
+                <Field name="CBReplyTo" value="dpisupport@careerbuilder.com"/>
+            </xsl:element>
+            <xsl:for-each select="Job">
+				<xsl:if test="contains(Field[@name='CBCountry']/@value,'CA')">
+                <xsl:element name="Job">
+                    <Field name="CBAction" value="Add"/>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBUserJobID</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="concat('CA~',Field[@name='CBUserJobID']/@value)"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBProductID</xsl:attribute>
+                        <xsl:attribute name="value">JCPRI0CA</xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBDisplayJobID</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="Field[@name='CBUserJobID']/@value"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBCity</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="Field[@name='CBCity']/@value"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBState</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="Field[@name='CBState']/@value"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBCountry</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="Field[@name='CBCountry']/@value"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBJobTitle</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="Field[@name='CBJobTitle']/@value"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBJobTypeCode</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="Field[@name='CBJobTypeCode']/@value"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBEmployeeType</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="Field[@name='CBEmployeeType']/@value"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBApplyURL</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="Field[@name='CBApplyURL']/@value"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <!-- <xsl:element name="Field"><xsl:attribute name="name">CBContactEmail</xsl:attribute><xsl:attribute name="value"><xsl:value-of select="Field[@name='CBContactEmail']/@value"/></xsl:attribute></xsl:element> -->
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBExperience</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="Field[@name='CBExperience']/@value"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBEducation</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="Field[@name='CBEducation']/@value"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBPrimaryIndustry</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="Field[@name='CBPrimaryIndustry']/@value"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBJobSkinDID</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:choose>
+                                <xsl:when test="contains(Field[@name='CBCategory']/@value,'Sales')">JBHR7DC6K6WH213J5S1N</xsl:when>
+                                <xsl:otherwise>JBHM1KK62KFH7D316LK9</xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBShowName</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="Field[@name='CBShowName']/@value"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBShowPhone</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="Field[@name='CBShowPhone']/@value"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBTravel</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="Field[@name='CBTravel']/@value"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBContactCompany</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="Field[@name='CBContactCompany']/@value"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="Field">
+                        <xsl:attribute name="name">CBDescription</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="translate(Field[@name='CBDescription']/@value,'&#10;','')"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                    <!-- EOJ-->
+                </xsl:element>
+                <!-- End of CB Job node -->
+				</xsl:if>
+            </xsl:for-each>
+            <!-- End of BM job node -->
+        </xsl:element>
+        <!-- End of Batch -->
+    </xsl:template>
+</xsl:stylesheet>
